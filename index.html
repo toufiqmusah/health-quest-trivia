@@ -31,7 +31,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
             text-align: center;
         }
 
@@ -138,6 +139,13 @@
             opacity: 1;
         }
 
+        .start-buttons-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
         .start-btn {
             background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
             color: var(--color-text-light);
@@ -147,7 +155,6 @@
             font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
-            margin-top: 30px;
             transition: all 0.3s ease;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
@@ -495,6 +502,10 @@
                 text-align: center;
                 flex-direction: column;
             }
+            .start-buttons-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
             .action-buttons {
                 justify-content: center;
             }
@@ -545,8 +556,10 @@
                 <input type="text" id="playerName" placeholder="Your Name" class="name-input">
             </div>
 
-            <button class="start-btn" onclick="startGame()">🚀 Start Game</button>
-            <button class="start-btn" onclick="openResourceHub()">📚 Resource Hub</button>
+            <div class="start-buttons-container">
+                <button class="start-btn" onclick="startGame()">🚀 Start Game</button>
+                <button class="start-btn" onclick="openResourceHub()">📚 Resource Hub</button>
+            </div>
         </div>
 
         <!-- Game Screen -->
