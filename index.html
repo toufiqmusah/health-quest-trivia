@@ -507,6 +507,7 @@
 </head>
 <body>
     <button class="sound-toggle" onclick="toggleSound()">🔊</button>
+    <audio id="bgMusic" src="game-music.mp3" loop></audio>
     
     <div class="container">
         <div class="game-header">
@@ -545,6 +546,7 @@
             </div>
 
             <button class="start-btn" onclick="startGame()">🚀 Start Game</button>
+            <button class="start-btn" onclick="openResourceHub()">📚 Resource Hub</button>
         </div>
 
         <!-- Game Screen -->
@@ -846,6 +848,16 @@
         function toggleSound() {
             soundEnabled = !soundEnabled;
             document.querySelector('.sound-toggle').textContent = soundEnabled ? '🔊' : '🔇';
+            const bgMusic = document.getElementById('bgMusic');
+            if (soundEnabled) {
+                bgMusic.play();
+            } else {
+                bgMusic.pause();
+            }
+        }
+
+        function openResourceHub() {
+            window.open('resource-hub.html', '_blank');
         }
 
         // Selects a difficulty level and updates the button's style
@@ -882,7 +894,12 @@
                 currentQuestion = 0;
                 score = 0;
                 document.getElementById('score').textContent = score;
-                
+                const bgMusic = document.getElementById('bgMusic');
+                if (soundEnabled) {
+                    bgMusic.volume = 0.5;
+                    bgMusic.play();
+                }
+
                 displayQuestion();
             } else {
                 alert("Please select a difficulty level to start the game.");
