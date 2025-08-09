@@ -1,46 +1,387 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Resource Hub</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #74b9ff, #0984e3);
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 10px;
-    }
-    a.back-link {
-      color: #fff;
-      display: inline-block;
-      margin-bottom: 20px;
-      text-decoration: none;
-    }
-    h1 {
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIV Self-Testing (HIVST) & PrEP Resource Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+    </style>
 </head>
-<body>
-  <div class="container">
-    <a class="back-link" href="index.html">⬅ Back to Game</a>
-    <h1>Resource Hub</h1>
-    <p>Explore these resources to learn more about HIV self-testing, PrEP, and reproductive health.</p>
-    <h2>Quick Facts</h2>
-    <ul>
-      <li><strong>What is HIV Self-Testing (HIVST)?</strong> HIVST lets you collect your own specimen, perform the test, and read the result privately. Reactive tests must be confirmed at a clinic.</li>
-      <li><strong>What is PrEP?</strong> Pre-exposure prophylaxis (PrEP) is HIV prevention medicine for HIV-negative people at higher risk.</li>
-      <li><strong>Privacy & Confidentiality:</strong> You can test in private and choose who to tell. Health workers must keep your information confidential.</li>
-    </ul>
-    <p>Have questions? Reach out to your local health provider or visit trusted health websites for more information.</p>
-  </div>
+<body class="min-h-screen">
+
+    <section class="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 text-white py-14 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h1 class="text-3xl md:text-5xl font-bold tracking-tight">HIV Self-Testing (HIVST) & PrEP Resource Hub</h1>
+            <p class="mt-4 text-white/90 max-w-2xl">
+                Clear, youth-friendly guidance on testing, prevention, and care—plus tools for clubs, schools, and community groups.
+            </p>
+            <div class="mt-6 flex flex-col sm:flex-row sm:items-center gap-3">
+                <div class="sm:w-2/3">
+                    <input type="text" placeholder="Search HIVST, PrEP, myths, services…" class="w-full p-3 rounded-md bg-white/95 text-gray-900 border-none outline-none focus:ring-2 focus:ring-white">
+                </div>
+                <div class="sm:w-1/3 flex gap-3">
+                    <a href="index.html" class="flex-1 px-6 py-3 rounded-md font-medium bg-white text-indigo-700 hover:bg-gray-100 transition-colors duration-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20l7-7m0 0l-7-7m7 7H4"/></svg>
+                        Start Trivia
+                    </a>
+                    <button class="flex-1 px-6 py-3 rounded-md font-medium bg-white/20 text-white hover:bg-white/30 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download Cards
+                    </button>
+                </div>
+            </div>
+            <div class="mt-6 flex flex-wrap gap-2">
+                <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-white/20 text-white">Confidential</span>
+                <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-white/20 text-white">Youth-friendly</span>
+                <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-white/20 text-white">Actionable</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto px-6 -mt-8 grid md:grid-cols-3 gap-4">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-lg font-bold">What is HIV Self‑Testing (HIVST)?</h2>
+            <p class="mt-2 text-sm text-gray-600">
+                HIVST lets you collect your own specimen (oral fluid or finger‑prick blood), perform the test, and read the result privately. Results are screening results—reactive tests must be confirmed at a clinic.
+            </p>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-lg font-bold">What is PrEP?</h2>
+            <p class="mt-2 text-sm text-gray-600">
+                Pre‑exposure prophylaxis (PrEP) is HIV prevention medicine for HIV‑negative people at higher risk. When taken as prescribed, PrEP greatly reduces the risk of getting HIV from sex or injecting drug use.
+            </p>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-lg font-bold">Privacy & Confidentiality</h2>
+            <p class="mt-2 text-sm text-gray-600">
+                You can test in private and choose who to tell. If your test is reactive, health workers must keep your information confidential and support confirmatory testing and care.
+            </p>
+        </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto px-6 py-10">
+        <div class="border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" role="tablist">
+                <button class="tab-button inline-flex items-center gap-2 px-4 py-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 border-transparent transition-colors duration-200" data-tab="hivst-basics" role="tab">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    HIVST Basics
+                </button>
+                <button class="tab-button inline-flex items-center gap-2 px-4 py-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 border-transparent transition-colors duration-200" data-tab="prep-guide" role="tab">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    PrEP Guide
+                </button>
+                <button class="tab-button inline-flex items-center gap-2 px-4 py-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 border-transparent transition-colors duration-200" data-tab="myths-facts" role="tab">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20v2.5a2.5 2.5 0 0 1-2.5 2.5H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h1.5a2.5 2.5 0 0 1 2.5 2.5v1.5"/><path d="M15 5h-1v1H9V5H8"/><path d="M9 13h1v-1h5v1h1"/><path d="M9 9h6"/></svg>
+                    Myths & Facts
+                </button>
+                <button class="tab-button inline-flex items-center gap-2 px-4 py-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 border-transparent transition-colors duration-200" data-tab="find-services" role="tab">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5l-7-7c-2.8-2.8-2.8-7.2 0-10l7-7l7 7c2.8 2.8 2.8 7.2 0 10l-7 7z"/><circle cx="12" cy="11.5" r="3"/></svg>
+                    Find Services
+                </button>
+                <button class="tab-button inline-flex items-center gap-2 px-4 py-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 border-transparent transition-colors duration-200" data-tab="ask-expert" role="tab">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Ask an Expert
+                </button>
+            </nav>
+        </div>
+
+        <div class="mt-6 tab-content active" id="hivst-basics">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-base font-bold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.07"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                        How it works
+                    </h3>
+                    <ul class="list-disc pl-5 mt-4 text-sm text-gray-700 space-y-2">
+                        <li>Most kits use oral fluid or a finger‑prick blood sample.</li>
+                        <li>Step‑by‑step: prepare the kit • collect the sample • start the test • wait 15–20 minutes • read result.</li>
+                        <li>A reactive result = possible HIV infection and needs a clinic‑based confirmatory test. A non‑reactive result means no HIV was detected, but repeat testing is recommended if you had a recent exposure.</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-base font-bold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.07"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                        When to use
+                    </h3>
+                    <ul class="list-disc pl-5 mt-4 text-sm text-gray-700 space-y-2">
+                        <li>After a potential exposure wait the kit’s window period (often ~3–12 weeks depending on kit) before relying on a non‑reactive result.</li>
+                        <li>Use HIVST as part of routine sexual health—e.g., every 3–6 months if you are sexually active with new or multiple partners.</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-base font-bold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.07"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                        What’s next after a reactive result?
+                    </h3>
+                    <ul class="list-disc pl-5 mt-4 text-sm text-gray-700 space-y-2">
+                        <li>Go for confirmatory testing immediately at an approved facility.</li>
+                        <li>If confirmed HIV‑positive, start treatment (ART) early for best health and to prevent transmission (U=U).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 tab-content" id="prep-guide" style="display: none;">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-base font-bold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.07"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                        Who should consider PrEP?
+                    </h3>
+                    <ul class="list-disc pl-5 mt-4 text-sm text-gray-700 space-y-2">
+                        <li>Anyone HIV‑negative with ongoing risk (e.g., multiple partners, inconsistent condom use, partner with unknown/positive status, transactional sex).</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-base font-bold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.07"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                        How to take PrEP
+                    </h3>
+                    <ul class="list-disc pl-5 mt-4 text-sm text-gray-700 space-y-2">
+                        <li>Daily oral pills (TDF/FTC) are the most common.</li>
+                        <li>Long‑acting injectable PrEP (cabotegravir) may be available in some settings—given every 2 months by a provider.</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-base font-bold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.07"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                        Effectiveness & side effects
+                    </h3>
+                    <ul class="list-disc pl-5 mt-4 text-sm text-gray-700 space-y-2">
+                        <li>When taken as prescribed, PrEP reduces sexual HIV risk by ~99%.</li>
+                        <li>Mild side effects (nausea, headache) often settle in a few days to weeks. Speak to a clinician if side effects persist.</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-base font-bold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.07"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                        Starting PrEP
+                    </h3>
+                    <ul class="list-disc pl-5 mt-4 text-sm text-gray-700 space-y-2">
+                        <li>You must test HIV‑negative before starting and test regularly while on PrEP.</li>
+                        <li>Discuss STI screening, contraception, and kidney check where required.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 tab-content" id="myths-facts" style="display: none;">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-lg font-bold">FAQs</h3>
+                <div class="divide-y divide-gray-200">
+                    <div class="py-4">
+                        <button class="w-full text-left text-sm font-medium text-gray-900 flex justify-between items-center accordion-trigger">
+                            <span>Myth: HIVST gives a final diagnosis.</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-200 accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="accordion-content mt-2 text-sm text-gray-700" style="display: none;">
+                            Fact: HIVST is a screening test. Reactive results must be confirmed by a provider using validated algorithms.
+                        </div>
+                    </div>
+                    <div class="py-4">
+                        <button class="w-full text-left text-sm font-medium text-gray-900 flex justify-between items-center accordion-trigger">
+                            <span>Myth: PrEP is only for certain groups.</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-200 accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="accordion-content mt-2 text-sm text-gray-700" style="display: none;">
+                            Fact: PrEP is for anyone at substantial risk of HIV regardless of gender or orientation—talk to a provider to assess suitability.
+                        </div>
+                    </div>
+                    <div class="py-4">
+                        <button class="w-full text-left text-sm font-medium text-gray-900 flex justify-between items-center accordion-trigger">
+                            <span>Myth: Testing positive means people will know.</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-200 accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="accordion-content mt-2 text-sm text-gray-700" style="display: none;">
+                            Fact: Your results and care are confidential. You choose whom to tell and when.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 tab-content" id="find-services" style="display: none;">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-base font-bold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.07"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                        Where to get HIVST kits
+                    </h3>
+                    <ul class="list-disc pl-5 mt-4 text-sm text-gray-700 space-y-2">
+                        <li>Pharmacies, community distributors, youth clinics, and outreach campaigns (locations vary—add local partners below).</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-base font-bold flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.07"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                        PrEP & confirmatory testing
+                    </h3>
+                    <ul class="list-disc pl-5 mt-4 text-sm text-gray-700 space-y-2">
+                        <li>Add local clinics, hotlines, and hours here. Include cost info and whether youth‑friendly services are available.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 tab-content" id="ask-expert" style="display: none;">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-lg font-bold flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Submit a question
+                </h3>
+                <div class="mt-4 grid md:grid-cols-2 gap-4">
+                    <input type="email" placeholder="Your email (optional)" class="w-full p-3 rounded-md border border-gray-300">
+                    <input type="text" placeholder="Preferred reply method (email/WhatsApp)" class="w-full p-3 rounded-md border border-gray-300">
+                    <div class="md:col-span-2">
+                        <textarea rows="5" placeholder="Type your anonymous question here…" class="w-full p-3 rounded-md border border-gray-300"></textarea>
+                    </div>
+                    <div class="md:col-span-2 flex gap-3">
+                        <button class="px-6 py-3 rounded-md font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+                            Send
+                        </button>
+                        <button class="px-6 py-3 rounded-md font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors duration-200">Clear</button>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-3">Responses by qualified counselors within 24–72 hours. If this is urgent, please use the hotline in Find Services.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="max-w-6xl mx-auto px-6 pb-10 grid md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-lg font-bold flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 19v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Club / Classroom Session
+            </h3>
+            <p class="mt-4 text-sm text-gray-700">Run a 45‑minute session: 15‑min trivia • 15‑min card scenarios • 15‑min Q&A.</p>
+            <p class="mt-2 text-sm text-gray-700">Use the facilitator guide and track progress below.</p>
+            <div class="mt-4">
+                <p class="text-xs mb-2 text-gray-500">Example completion</p>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-indigo-600 h-2.5 rounded-full" style="width: 66%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-lg font-bold flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.07"/><path d="M22 4L12 14.01l-3-3"/></svg>
+                Partners
+            </h3>
+            <ul class="mt-4 text-sm text-gray-700 space-y-2">
+                <li class="flex items-center justify-between">
+                    <span>Youth Clinics</span>
+                    <span class="text-gray-500 text-xs">Adolescent‑friendly health services</span>
+                </li>
+                <li class="flex items-center justify-between">
+                    <span>NGO Partners</span>
+                    <span class="text-gray-500 text-xs">Community outreach & counseling</span>
+                </li>
+                <li class="flex items-center justify-between">
+                    <span>Pharmacy Network</span>
+                    <span class="text-gray-500 text-xs">Retail access to HIVST kits</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-lg font-bold flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Downloads
+            </h3>
+            <ul class="mt-4 text-sm text-gray-700 space-y-2">
+                <li class="flex items-center justify-between">
+                    <a href="#" class="underline hover:no-underline">Card Game – Print‑Ready Deck (PDF)</a>
+                    <span class="text-gray-500 text-xs">2.3 MB</span>
+                </li>
+                <li class="flex items-center justify-between">
+                    <a href="#" class="underline hover:no-underline">Facilitator Guide – HIVST & PrEP Sessions (PDF)</a>
+                    <span class="text-gray-500 text-xs">1.1 MB</span>
+                </li>
+                <li class="flex items-center justify-between">
+                    <a href="#" class="underline hover:no-underline">Myths & Facts Handout (PDF)</a>
+                    <span class="text-gray-500 text-xs">420 KB</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="border-t border-gray-200 bg-white">
+        <div class="max-w-6xl mx-auto px-6 py-8 text-sm text-gray-600 grid md:grid-cols-3 gap-6">
+            <div>
+                <p class="font-semibold text-gray-900">Disclaimer</p>
+                <p class="mt-2">
+                    Educational content only; not a substitute for professional medical advice. Confirm local guidelines and service availability.
+                </p>
+            </div>
+            <div>
+                <p class="font-semibold text-gray-900">SDG Alignment</p>
+                <ul class="list-disc pl-4 mt-2">
+                    <li>SDG 3: Good Health & Well‑being</li>
+                    <li>SDG 4: Quality Education</li>
+                    <li>SDG 10: Reduced Inequalities</li>
+                </ul>
+            </div>
+            <div>
+                <p class="font-semibold text-gray-900">Contact</p>
+                <p class="mt-2">Add local hotline(s), clinic contacts, and office hours here.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            // Set the first tab as active by default
+            const defaultTab = 'hivst-basics';
+            document.querySelector(`[data-tab="${defaultTab}"]`).classList.add('border-indigo-600', 'text-indigo-600');
+            document.getElementById(defaultTab).style.display = 'block';
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Deactivate all buttons and hide all content
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('border-indigo-600', 'text-indigo-600');
+                        btn.classList.add('border-transparent', 'text-gray-500');
+                    });
+                    tabContents.forEach(content => content.style.display = 'none');
+
+                    // Activate the clicked button and show its content
+                    const tabId = button.dataset.tab;
+                    button.classList.add('border-indigo-600', 'text-indigo-600');
+                    document.getElementById(tabId).style.display = 'block';
+                });
+            });
+
+            // Accordion functionality for Myths & Facts
+            const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+            accordionTriggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const content = trigger.nextElementSibling;
+                    const icon = trigger.querySelector('.accordion-icon');
+                    const isExpanded = content.style.display === 'block';
+                    
+                    // Collapse all and reset icons
+                    document.querySelectorAll('.accordion-content').forEach(c => c.style.display = 'none');
+                    document.querySelectorAll('.accordion-icon').forEach(i => i.style.transform = 'rotate(0deg)');
+
+                    if (!isExpanded) {
+                        content.style.display = 'block';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
