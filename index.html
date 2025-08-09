@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Quest - HIV & Reproductive Health Trivia</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --color-primary: #667eea;
+            --color-secondary: #764ba2;
+            --color-success: #4ecdc4;
+            --color-danger: #ff6b6b;
+            --color-text-dark: #333;
+            --color-text-light: #fff;
+            --card-background: rgba(255, 255, 255, 0.95);
+            --card-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 95%;
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .game-header {
+            margin-bottom: 30px;
+        }
+
+        .game-title {
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            color: var(--color-text-light);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+            animation: bounceIn 1s ease-in-out;
+            background: linear-gradient(45deg, var(--color-danger), var(--color-success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes bounceIn {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .game-subtitle {
+            color: var(--color-text-light);
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            opacity: 0.9;
+        }
+
+        .game-card {
+            background: var(--card-background);
+            border-radius: 20px;
+            padding: clamp(20px, 5vw, 40px);
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .start-screen {
+            text-align: center;
+        }
+
+        .difficulty-selector {
+            margin: 30px 0;
+        }
+
+        .difficulty-label {
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            color: var(--color-text-dark);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .difficulty-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .difficulty-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 120px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: var(--color-text-light);
+            transform: scale(0.95);
+            opacity: 0.7;
+        }
+
+        .difficulty-btn.easy { background: linear-gradient(45deg, #4CAF50, #8BC34A); }
+        .difficulty-btn.medium { background: linear-gradient(45deg, #FF9800, #FFC107); }
+        .difficulty-btn.hard { background: linear-gradient(45deg, #F44336, #E91E63); }
+
+        .difficulty-btn:hover, .difficulty-btn.active {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            opacity: 1;
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            color: var(--color-text-light);
+            border: none;
+            padding: clamp(15px, 5vw, 20px) clamp(30px, 10vw, 50px);
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .game-screen {
+            display: none;
+        }
+
+        .game-header-info {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .score, .question-counter, .difficulty-indicator {
+            background: var(--color-success);
+            color: var(--color-text-light);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question {
+            font-size: clamp(1.2rem, 4vw, 1.4rem);
+            color: var(--color-text-dark);
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .option:hover {
+            border-color: var(--color-primary);
+            transform: translateX(5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .option.correct {
+            background: linear-gradient(45deg, #4CAF50, #8BC34A);
+            color: white;
+            border-color: #4CAF50;
+            animation: correctPulse 0.6s ease;
+        }
+
+        .option.incorrect {
+            background: linear-gradient(45deg, #F44336, #E57373);
+            color: white;
+            border-color: #F44336;
+            animation: shake 0.6s ease;
+        }
+
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .option-letter {
+            background: var(--color-primary);
+            color: var(--color-text-light);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: 600;
+        }
+
+        .option.correct .option-letter,
+        .option.incorrect .option-letter {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn, .next-btn {
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            color: var(--color-text-light);
+            border: none;
+            padding: 15px 20px;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .action-btn.learn-more { background: linear-gradient(45deg, var(--color-danger), #E91E63); }
+        .action-btn.listen-btn { background: linear-gradient(45deg, var(--color-success), #44a08d); }
+        .action-btn:hover, .next-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        
+        .action-btn:disabled, .next-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .next-btn {
+            display: none;
+            margin-left: auto;
+        }
+
+        .results-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .final-score {
+            font-size: clamp(2rem, 8vw, 3rem);
+            color: var(--color-primary);
+            font-weight: 700;
+            margin: 20px 0;
+            animation: bounceIn 1s ease;
+        }
+
+        .performance-message {
+            font-size: clamp(1rem, 3.5vw, 1.3rem);
+            color: var(--color-text-dark);
+            margin: 20px 0;
+            font-weight: 500;
+        }
+        
+        .info-panel {
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            color: var(--color-text-light);
+            padding: clamp(15px, 4vw, 20px);
+            border-radius: 15px;
+            margin: 20px 0;
+            font-size: clamp(0.9rem, 2.5vw, 0.95rem);
+            line-height: 1.5;
+            text-align: left;
+            display: none;
+            position: relative;
+        }
+
+        .loading-text {
+            display: none;
+            text-align: center;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .sound-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .sound-toggle:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .leaderboard {
+            margin: 30px 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .leaderboard-title {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            color: var(--color-text-dark);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .leaderboard-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .leaderboard-entry.current-player {
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            color: var(--color-text-light);
+            transform: scale(1.05);
+            animation: highlightEntry 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes highlightEntry {
+            from { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+            to { box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4); }
+        }
+
+        .rank {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-weight: 700;
+            min-width: 40px;
+        }
+
+        .player-name {
+            flex: 1;
+            text-align: left;
+            margin: 0 20px;
+            font-weight: 600;
+            word-wrap: break-word;
+        }
+
+        .player-score {
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            font-weight: 600;
+        }
+
+        .trophy {
+            margin-left: 10px;
+        }
+
+        .play-again-btn {
+            background: linear-gradient(45deg, var(--color-success), #44a08d);
+            color: var(--color-text-light);
+            border: none;
+            padding: clamp(15px, 5vw, 20px) clamp(30px, 10vw, 50px);
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .play-again-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, var(--color-success), #44a08d);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .name-input {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            width: 100%;
+            max-width: 300px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .name-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        .info-panel p {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+            .container {
+                margin: 10px;
+            }
+            .game-header-info {
+                justify-content: center;
+                text-align: center;
+                flex-direction: column;
+            }
+            .action-buttons {
+                justify-content: center;
+            }
+            .next-btn {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="sound-toggle" onclick="toggleSound()">🔊</button>
+    
+    <div class="container">
+        <div class="game-header">
+            <h1 class="game-title">Health Quest</h1>
+            <p class="game-subtitle">Learn about HIV Self-Testing, PrEP & Reproductive Health</p>
+        </div>
+
+        <!-- Start Screen -->
+        <div id="startScreen" class="game-card start-screen">
+            <div class="info-panel">
+                <strong>🎯 Welcome to Health Quest!</strong><br>
+                Test your knowledge about HIV self-testing, pre-exposure prophylaxis (PrEP), and reproductive health. 
+                Choose your difficulty level and compete for the top spot on our leaderboard!
+            </div>
+            
+            <div class="difficulty-selector">
+                <div class="difficulty-label">Choose Your Challenge Level</div>
+                <div class="difficulty-buttons">
+                    <button class="difficulty-btn easy" onclick="selectDifficulty('easy')">
+                        🟢 Easy<br><small>Basic concepts</small>
+                    </button>
+                    <button class="difficulty-btn medium" onclick="selectDifficulty('medium')">
+                        🟡 Medium<br><small>Detailed knowledge</small>
+                    </button>
+                    <button class="difficulty-btn hard" onclick="selectDifficulty('hard')">
+                        🔴 Hard<br><small>Expert level</small>
+                    </button>
+                </div>
+            </div>
+
+            <div style="margin: 30px 0;">
+                <label for="playerName" style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">
+                    Enter your name for the leaderboard:
+                </label>
+                <input type="text" id="playerName" placeholder="Your Name" class="name-input">
+            </div>
+
+            <button class="start-btn" onclick="startGame()">🚀 Start Game</button>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="game-card game-screen">
+            <div class="game-header-info">
+                <div class="score">Score: <span id="score">0</span></div>
+                <div class="question-counter">Question <span id="questionNumber">1</span> of <span id="totalQuestions">10</span></div>
+                <div class="difficulty-indicator">Level: <span id="currentDifficulty">Easy</span></div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="question-container">
+                <div class="question" id="question"></div>
+                <div class="options" id="options"></div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn listen-btn" id="listenBtn" onclick="speakQuestion()">🎧 Listen</button>
+                <button class="action-btn learn-more" id="learnMoreBtn" style="display:none;" onclick="generateInfo()">✨ Learn More</button>
+                <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question ➡️</button>
+            </div>
+
+            <div class="info-panel" id="infoPanel">
+                <div id="infoText"></div>
+                <div id="loadingText" class="loading-text">Generating a detailed explanation...</div>
+            </div>
+
+        </div>
+
+        <!-- Results Screen -->
+        <div id="resultsScreen" class="game-card results-screen">
+            <h2 style="color: #333; margin-bottom: 20px;">🎉 Game Complete!</h2>
+            <div class="final-score" id="finalScore"></div>
+            <div class="performance-message" id="performanceMessage"></div>
+            
+            <div class="leaderboard">
+                <h3 class="leaderboard-title">🏆 Leaderboard</h3>
+                <div id="leaderboardList"></div>
+            </div>
+
+            <button class="play-again-btn" onclick="resetGame()">Play Again 🔄</button>
+        </div>
+    </div>
+
+    <script>
+        // Game state variables
+        let currentQuestion = 0;
+        let score = 0;
+        let selectedDifficulty = null;
+        let playerName = '';
+        let gameQuestions = [];
+        let soundEnabled = true;
+
+        // Leaderboard state - A pseudo leaderboard using a simple array
+        let leaderboard = [
+            { name: 'Dr. Know-it-all', score: 950 },
+            { name: 'Healthy Hero', score: 800 },
+            { name: 'Wellness Whiz', score: 650 },
+            { name: 'Smarty Pants', score: 500 },
+            { name: 'Quiz Master', score: 400 }
+        ];
+
+        // Question database
+        const questionDatabase = {
+            easy: [
+                {
+                    question: "What does HIV stand for?",
+                    options: ["Human Immunodeficiency Virus", "Human Infectious Virus", "Highly Infectious Virus", "Human Immune Virus"],
+                    correct: 0,
+                    info: "HIV stands for Human Immunodeficiency Virus, which attacks the body's immune system."
+                },
+                {
+                    question: "How long does it take to get results from an HIV self-test?",
+                    options: ["1 hour", "15-20 minutes", "24 hours", "1 week"],
+                    correct: 1,
+                    info: "Most HIV self-tests provide results within 15-20 minutes."
+                },
+                {
+                    question: "What does PrEP stand for?",
+                    options: ["Pre-Exposure Prophylaxis", "Prevention Preparation", "Primary Prevention", "Pre-Emergency Protocol"],
+                    correct: 0,
+                    info: "PrEP stands for Pre-Exposure Prophylaxis, a medication that helps prevent HIV infection."
+                },
+                {
+                    question: "Can HIV be transmitted through casual contact like hugging?",
+                    options: ["Yes", "No", "Only if there's an open wound", "Sometimes"],
+                    correct: 1,
+                    info: "HIV cannot be transmitted through casual contact like hugging, kissing, or sharing utensils."
+                },
+                {
+                    question: "Who should consider taking PrEP?",
+                    options: ["Only gay men", "People at high risk for HIV", "Everyone", "Only healthcare workers"],
+                    correct: 1,
+                    info: "PrEP is recommended for people at high risk for HIV, regardless of sexual orientation."
+                },
+                {
+                    question: "How often should sexually active people get tested for STIs?",
+                    options: ["Once a year", "Every 3-6 months", "Only when symptoms appear", "Never"],
+                    correct: 1,
+                    info: "Sexually active people should get tested for STIs every 3-6 months or as recommended by their healthcare provider."
+                },
+                {
+                    question: "What is the most effective way to prevent HIV transmission during sex?",
+                    options: ["Birth control pills", "Condoms", "Withdrawal method", "Testing once"],
+                    correct: 1,
+                    info: "Consistent and correct use of condoms is highly effective in preventing HIV transmission during sex."
+                },
+                {
+                    question: "Can a person with HIV live a normal life with proper treatment?",
+                    options: ["No", "Yes", "Only for a few years", "Depends on age"],
+                    correct: 1,
+                    info: "With proper antiretroviral treatment, people with HIV can live long, healthy lives."
+                },
+                {
+                    question: "What does 'undetectable = untransmittable' mean?",
+                    options: ["HIV is cured", "Cannot transmit HIV sexually", "Test doesn't work", "Immune system is restored"],
+                    correct: 1,
+                    info: "When HIV levels are undetectable in the blood, the virus cannot be transmitted sexually."
+                },
+                {
+                    question: "How effective is PrEP when taken correctly?",
+                    options: ["50% effective", "Over 99% effective", "75% effective", "Not very effective"],
+                    correct: 1,
+                    info: "When taken as prescribed, PrEP is over 99% effective at preventing HIV transmission."
+                }
+            ],
+            medium: [
+                {
+                    question: "What is the window period for HIV testing?",
+                    options: ["1-2 days", "1-2 weeks", "2-12 weeks", "6 months"],
+                    correct: 2,
+                    info: "The window period is typically 2-12 weeks, during which HIV tests might not detect the virus."
+                },
+                {
+                    question: "Which type of HIV test can detect infection earliest?",
+                    options: ["Antibody test", "Antigen/antibody test", "NAT (nucleic acid test)", "Rapid test"],
+                    correct: 2,
+                    info: "NAT (nucleic acid test) can detect HIV infection earliest, within 10-33 days."
+                },
+                {
+                    question: "What should someone do if they get a reactive HIV self-test result?",
+                    options: ["Take another self-test", "Ignore it", "Get confirmatory testing", "Start treatment immediately"],
+                    correct: 2,
+                    info: "A reactive self-test result should be followed up with confirmatory testing at a healthcare facility."
+                },
+                {
+                    question: "How often should PrEP users get tested for HIV?",
+                    options: ["Monthly", "Every 3 months", "Every 6 months", "Yearly"],
+                    correct: 1,
+                    info: "PrEP users should get tested for HIV every 3 months while taking PrEP."
+                },
+                {
+                    question: "What is PEP and when should it be used?",
+                    options: ["Post-Exposure Prophylaxis within 72 hours", "Pre-Exercise Protocol", "Pregnancy Prevention Pills", "Post-Emergency Protocol"],
+                    correct: 0,
+                    info: "PEP is Post-Exposure Prophylaxis, emergency medication taken within 72 hours after potential HIV exposure."
+                },
+                {
+                    question: "Which populations are disproportionately affected by HIV?",
+                    options: ["Only men", "Men who have sex with men, transgender women, people who inject drugs", "Only young people", "Only older adults"],
+                    correct: 1,
+                    info: "Certain populations including MSM, transgender women, and people who inject drugs are disproportionately affected."
+                },
+                {
+                    question: "What is the difference between HIV and AIDS?",
+                    options: ["They are the same", "HIV is the virus, AIDS is the advanced stage", "AIDS comes first", "HIV is curable, AIDS isn't"],
+                    correct: 1,
+                    info: "HIV is the virus that causes infection; AIDS is the advanced stage when the immune system is severely damaged."
+                },
+                {
+                    question: "Can HIV be transmitted through oral sex?",
+                    options: ["No, never", "Yes, but risk is lower than anal/vaginal sex", "Only to the person performing oral sex", "Risk is the same as vaginal sex"],
+                    correct: 1,
+                    info: "HIV can be transmitted through oral sex, but the risk is much lower than anal or vaginal sex."
+                },
+                {
+                    question: "What factors can increase HIV transmission risk?",
+                    options: ["Only having multiple partners", "STIs, high viral load, no condom use", "Age only", "Gender only"],
+                    correct: 1,
+                    info: "STIs, high viral load, and unprotected sex significantly increase HIV transmission risk."
+                },
+                {
+                    question: "How long does PrEP take to reach maximum effectiveness?",
+                    options: ["Immediately", "7 days for anal sex, 21 days for vaginal", "1 month", "3 months"],
+                    correct: 1,
+                    info: "PrEP reaches maximum effectiveness after 7 days for anal sex and 21 days for vaginal sex."
+                }
+            ],
+            hard: [
+                {
+                    question: "What is the recommended CD4 count threshold for starting HIV treatment?",
+                    options: ["Regardless of CD4 count", "Below 500", "Below 350", "Below 200"],
+                    correct: 0,
+                    info: "Current guidelines recommend starting HIV treatment immediately upon diagnosis, regardless of CD4 count."
+                },
+                {
+                    question: "Which drug class is NOT typically used in modern HIV treatment regimens?",
+                    options: ["NRTIs", "NNRTIs", "Protease inhibitors", "Entry inhibitors"],
+                    correct: 3,
+                    info: "Entry inhibitors like maraviroc are rarely used in first-line HIV treatment regimens."
+                },
+                {
+                    question: "What is the sensitivity of 4th generation HIV tests?",
+                    options: ["Over 99%", "95-98%", "90-95%", "85-90%"],
+                    correct: 0,
+                    info: "Fourth-generation HIV tests have a sensitivity of over 99% when used after the window period."
+                },
+                {
+                    question: "Which biomarker indicates HIV treatment effectiveness?",
+                    options: ["CD4 count only", "Viral load only", "Both viral load and CD4 count", "Antibody levels"],
+                    correct: 2,
+                    info: "Both viral load (primary) and CD4 count are used to monitor HIV treatment effectiveness."
+                },
+                {
+                    question: "What is the mechanism of action of tenofovir in PrEP?",
+                    options: ["Protease inhibition", "Reverse transcriptase inhibition", "Integrase inhibition", "Entry inhibition"],
+                    correct: 1,
+                    info: "Tenofovir is a nucleotide reverse transcriptase inhibitor that blocks HIV replication."
+                },
+                {
+                    question: "Which population has shown the highest increase in new HIV infections recently?",
+                    options: ["Young men", "Young women aged 15-24 in sub-Saharan Africa", "Older adults", "Healthcare workers"],
+                    correct: 1,
+                    info: "Young women aged 15-24 in sub-Saharan Africa face disproportionately high HIV infection rates."
+                },
+                {
+                    question: "What is the concept of 'treatment as prevention' (TasP)?",
+                    options: ["Using PrEP", "Treating HIV+ partners to prevent transmission", "Mass testing campaigns", "Vaccine development"],
+                    correct: 1,
+                    info: "TasP involves treating HIV-positive individuals to achieve undetectable viral loads, preventing transmission."
+                },
+                {
+                    question: "Which test is used to confirm HIV infection after a reactive screening test?",
+                    options: ["Western blot", "HIV-1/HIV-2 differentiation immunoassay", "PCR", "ELISA"],
+                    correct: 1,
+                    info: "HIV-1/HIV-2 differentiation immunoassay is used to confirm and differentiate HIV types."
+                },
+                {
+                    question: "What percentage of new HIV infections are transmitted by people who don't know their status?",
+                    options: ["Approximately 40%", "Approximately 60%", "Approximately 80%", "Less than 20%"],
+                    correct: 0,
+                    info: "Studies suggest approximately 40% of new HIV transmissions come from people unaware of their HIV status."
+                },
+                {
+                    question: "What is the target for HIV viral suppression?",
+                    options: ["<50 copies/mL", "<200 copies/mL", "<500 copies/mL", "<1000 copies/mL"],
+                    correct: 0,
+                    info: "The goal of HIV treatment is to achieve viral suppression to <50 copies/mL (undetectable)."
+                }
+            ]
+        };
+
+        // Sound effects
+        function playSound(type) {
+            if (!soundEnabled) return;
+            
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            let frequency, duration;
+            
+            switch(type) {
+                case 'correct':
+                    frequency = 800;
+                    duration = 200;
+                    break;
+                case 'incorrect':
+                    frequency = 200;
+                    duration = 300;
+                    break;
+                case 'levelUp':
+                    frequency = 600;
+                    duration = 500;
+                    break;
+                case 'gameStart':
+                    frequency = 440;
+                    duration = 200;
+                    break;
+            }
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration / 1000);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration / 1000);
+        }
+
+        // Toggles sound on/off and updates the button icon
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            document.querySelector('.sound-toggle').textContent = soundEnabled ? '🔊' : '🔇';
+        }
+
+        // Selects a difficulty level and updates the button's style
+        function selectDifficulty(difficulty) {
+            selectedDifficulty = difficulty;
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.querySelector(`.difficulty-btn.${difficulty}`).classList.add('active');
+        }
+        
+        // Shuffles an array in place (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Starts the game
+        function startGame() {
+            playerName = document.getElementById('playerName').value.trim() || 'Anonymous Player';
+            
+            if (selectedDifficulty) {
+                playSound('gameStart');
+                gameQuestions = [...questionDatabase[selectedDifficulty]];
+                shuffleArray(gameQuestions);
+                
+                document.getElementById('startScreen').style.display = 'none';
+                document.getElementById('gameScreen').style.display = 'block';
+                document.getElementById('currentDifficulty').textContent = selectedDifficulty.charAt(0).toUpperCase() + selectedDifficulty.slice(1);
+                
+                currentQuestion = 0;
+                score = 0;
+                document.getElementById('score').textContent = score;
+                
+                displayQuestion();
+            } else {
+                alert("Please select a difficulty level to start the game.");
+            }
+        }
+        
+        // Displays the current question and its options
+        function displayQuestion() {
+            const questionData = gameQuestions[currentQuestion];
+            const optionsContainer = document.getElementById('options');
+            const infoPanel = document.getElementById('infoPanel');
+            const infoText = document.getElementById('infoText');
+            const nextBtn = document.getElementById('nextBtn');
+            const learnMoreBtn = document.getElementById('learnMoreBtn');
+            
+            document.getElementById('questionNumber').textContent = currentQuestion + 1;
+            document.getElementById('totalQuestions').textContent = gameQuestions.length;
+
+            const progress = (currentQuestion / gameQuestions.length) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            
+            optionsContainer.innerHTML = '';
+            infoPanel.style.display = 'none';
+            infoText.innerHTML = '';
+            nextBtn.style.display = 'none';
+            learnMoreBtn.style.display = 'none';
+            
+            document.getElementById('question').textContent = questionData.question;
+            
+            questionData.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                optionElement.innerHTML = `
+                    <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                optionElement.onclick = () => checkAnswer(index, questionData.correct);
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+        
+        // Checks the selected answer
+        function checkAnswer(selectedIndex, correctAnswer) {
+            const options = document.querySelectorAll('.option');
+            const infoPanel = document.getElementById('infoPanel');
+            const infoText = document.getElementById('infoText');
+            const nextBtn = document.getElementById('nextBtn');
+            const learnMoreBtn = document.getElementById('learnMoreBtn');
+            
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+                option.style.cursor = 'default';
+            });
+            
+            if (selectedIndex === correctAnswer) {
+                options[selectedIndex].classList.add('correct');
+                score += 100;
+                playSound('correct');
+            } else {
+                options[selectedIndex].classList.add('incorrect');
+                options[correctAnswer].classList.add('correct');
+                playSound('incorrect');
+            }
+            
+            document.getElementById('score').textContent = score;
+            
+            infoText.innerHTML = `<p><strong>Explanation:</strong></p><p>${gameQuestions[currentQuestion].info}</p>`;
+            infoPanel.style.display = 'block';
+            learnMoreBtn.style.display = 'flex';
+            
+            nextBtn.style.display = 'flex';
+        }
+        
+        // Moves to the next question or ends the game
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < gameQuestions.length) {
+                displayQuestion();
+            } else {
+                showResults();
+            }
+        }
+        
+        // Displays the results and the leaderboard
+        function showResults() {
+            document.getElementById('gameScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'block';
+            
+            document.getElementById('finalScore').textContent = `Your Score: ${score}`;
+            
+            let message = '';
+            if (score === gameQuestions.length * 100) {
+                message = "Incredible! You are a true expert. 🎉";
+                playSound('levelUp');
+            } else if (score >= gameQuestions.length * 70) {
+                message = "Great job! You have a strong understanding. 💪";
+            } else {
+                message = "Good effort! Keep learning and playing to improve. 🧠";
+            }
+            document.getElementById('performanceMessage').textContent = message;
+            
+            addPlayerToLeaderboard();
+        }
+        
+        // Adds the current player to the leaderboard and sorts it
+        function addPlayerToLeaderboard() {
+            leaderboard.push({ name: playerName, score: score });
+            leaderboard.sort((a, b) => b.score - a.score);
+            generateLeaderboard();
+        }
+        
+        // Generates the leaderboard HTML
+        function generateLeaderboard() {
+            const leaderboardList = document.getElementById('leaderboardList');
+            leaderboardList.innerHTML = '';
+            
+            leaderboard.forEach((entry, index) => {
+                const isCurrentPlayer = entry.name === playerName && entry.score === score;
+                const leaderboardEntry = document.createElement('div');
+                leaderboardEntry.classList.add('leaderboard-entry');
+                if (isCurrentPlayer) {
+                    leaderboardEntry.classList.add('current-player');
+                }
+                
+                leaderboardEntry.innerHTML = `
+                    <div class="rank">${index + 1}.</div>
+                    <div class="player-name">${entry.name}</div>
+                    <div class="player-score">${entry.score}</div>
+                    ${index === 0 && !isCurrentPlayer ? '<span class="trophy">👑</span>' : ''}
+                    ${isCurrentPlayer ? '<span class="trophy">✨</span>' : ''}
+                `;
+                
+                leaderboardList.appendChild(leaderboardEntry);
+            });
+        }
+        
+        // Resets the game to the start screen
+        function resetGame() {
+            document.getElementById('resultsScreen').style.display = 'none';
+            document.getElementById('startScreen').style.display = 'block';
+            
+            currentQuestion = 0;
+            score = 0;
+            gameQuestions = [];
+            
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById('playerName').value = '';
+            selectedDifficulty = null;
+        }
+
+        /**
+         * @description Generates and displays a detailed explanation for the current question using the Gemini API.
+         * Implements exponential backoff for retries.
+         */
+        async function generateInfo() {
+            const currentQuestionData = gameQuestions[currentQuestion];
+            const infoTextElement = document.getElementById('infoText');
+            const loadingTextElement = document.getElementById('loadingText');
+            const learnMoreBtn = document.getElementById('learnMoreBtn');
+
+            const prompt = `Provide a detailed, in-depth explanation for the following trivia question about HIV and reproductive health. The question is: "${currentQuestionData.question}". The correct answer is "${currentQuestionData.options[currentQuestionData.correct]}". Do not mention the question or options. Focus on providing a comprehensive, educational summary of the topic.`;
+
+            learnMoreBtn.disabled = true;
+            learnMoreBtn.textContent = 'Generating...';
+            loadingTextElement.style.display = 'block';
+            infoTextElement.innerHTML = '';
+
+            let retries = 0;
+            const maxRetries = 3;
+
+            async function fetchData() {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.status === 429 && retries < maxRetries) {
+                        const delay = Math.pow(2, retries) * 1000;
+                        retries++;
+                        console.log(`Rate limit exceeded, retrying in ${delay / 1000} seconds...`);
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        return fetchData();
+                    }
+
+                    const result = await response.json();
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        infoTextElement.innerHTML = `<p><strong>Gemini's Insights:</strong></p><p>${text}</p>`;
+                    } else {
+                        infoTextElement.innerHTML = `<p>Sorry, I couldn't generate a detailed explanation right now. Please try again later.</p>`;
+                    }
+                } catch (error) {
+                    console.error('Error generating info:', error);
+                    infoTextElement.innerHTML = `<p>An error occurred. Please check your network connection.</p>`;
+                } finally {
+                    learnMoreBtn.disabled = false;
+                    learnMoreBtn.innerHTML = '✨ Learn More';
+                    loadingTextElement.style.display = 'none';
+                }
+            }
+
+            fetchData();
+        }
+
+        /**
+         * @description Uses Gemini TTS API to speak the current question and options.
+         * Implements exponential backoff for retries.
+         */
+        async function speakQuestion() {
+            const currentQuestionData = gameQuestions[currentQuestion];
+            const listenBtn = document.getElementById('listenBtn');
+
+            let textToSpeak = `The question is: ${currentQuestionData.question}. The options are: `;
+            currentQuestionData.options.forEach((option, index) => {
+                textToSpeak += `${String.fromCharCode(65 + index)}, ${option}. `;
+            });
+
+            listenBtn.disabled = true;
+            listenBtn.textContent = 'Speaking...';
+
+            let retries = 0;
+            const maxRetries = 3;
+
+            async function fetchData() {
+                const payload = {
+                    contents: [{
+                        parts: [{ text: textToSpeak }]
+                    }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: {
+                            voiceConfig: {
+                                prebuiltVoiceConfig: { voiceName: "Puck" }
+                            }
+                        }
+                    },
+                    model: "gemini-2.5-flash-preview-tts"
+                };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.status === 429 && retries < maxRetries) {
+                        const delay = Math.pow(2, retries) * 1000;
+                        retries++;
+                        console.log(`Rate limit exceeded, retrying in ${delay / 1000} seconds...`);
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        return fetchData();
+                    }
+
+                    const result = await response.json();
+                    const part = result?.candidates?.[0]?.content?.parts?.[0];
+                    const audioData = part?.inlineData?.data;
+                    const mimeType = part?.inlineData?.mimeType;
+
+                    if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                        const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)[1], 10);
+                        const pcmData = base64ToArrayBuffer(audioData);
+                        const pcm16 = new Int16Array(pcmData);
+                        const wavBlob = pcmToWav(pcm16, sampleRate);
+                        const audioUrl = URL.createObjectURL(wavBlob);
+                        
+                        const audio = new Audio(audioUrl);
+                        audio.play();
+                    } else {
+                        console.error('TTS API response was invalid.');
+                    }
+                } catch (error) {
+                    console.error('Error with TTS API:', error);
+                } finally {
+                    listenBtn.disabled = false;
+                    listenBtn.innerHTML = '🎧 Listen';
+                }
+            }
+            fetchData();
+        }
+
+        // Helper function to convert base64 to ArrayBuffer
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        // Helper function to convert PCM audio data to a WAV file Blob
+        function pcmToWav(pcmData, sampleRate) {
+            const pcm16 = pcmData;
+            const buffer = new ArrayBuffer(44 + pcm16.length * 2);
+            const view = new DataView(buffer);
+
+            // Write WAV header
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + pcm16.length * 2, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, 1, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            writeString(view, 36, 'data');
+            view.setUint32(40, pcm16.length * 2, true);
+
+            // Write PCM data
+            let offset = 44;
+            for (let i = 0; i < pcm16.length; i++) {
+                view.setInt16(offset, pcm16[i], true);
+                offset += 2;
+            }
+
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+    </script>
+</body>
+</html>
